@@ -14,6 +14,10 @@ const data = {
           15. 6" Full HD (1920 x 1080) Widescreen LED-backlit IPS display (144Hz Refresh Rate, 3ms Overdrive Response Time, 300nit Brightness & 72% NTSC)
           16 GB DDR4 2666MHz Memory, 512GB PCIe NVMe SSD (2 x PCIe M. 2 Slots | 1 Slot Open for Easy Upgrades) & 1 - Available Hard Drive Bay
           Backlit Keyboard | LAN: Killer Gaming Network E2500 | Wireless: Killer DoubleShot Pro Wireless-AX 1650 WiFi 6 802. 11ac | 4th Gen All-Metal AeroBlade 3D Fan`,
+      comments: [
+        {author: 'Jennifer', text: `Parents bought this for my sister and this is perfect for her to start on it's good for light-medium gaming. With school converting to online it's perfect as well. This computer also has good battery life away from the charger while might use with heavy use not so much it's good though. Overall the computer is good for it's current price and an amazing deal.`},
+        {author: 'Kimberly Engel', text: 'Absolutely amazing laptop! Runs games with zero lag. I was lucky to get it for $579, and would recommend checking this frequently as it goes super fast at that price.'}
+      ]
     },
     {
       id: '2',
@@ -88,6 +92,22 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   res.json(_.find(data.products, {id: req.params.id}));
+});
+
+router.get("/:id/comments", (req, res) => {
+  res.json(_.get(_.find(data.products, {id: req.params.id}), 'comments'));
+});
+
+
+router.post("/:id/comments", (req, res) => {
+ const product = _.find(data.products, {id: req.params.id});
+ if(product) {
+   product.comments = product.comments || [];
+   product.comments.push(req.body);
+   res.end();
+ } else {
+   res.status(404).json(new Error('Product not found'));
+ }
 });
 
 module.exports = router;
