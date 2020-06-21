@@ -1,6 +1,4 @@
 import { createStore } from 'redux';
-import { cartReducer } from "./reducers";
+import { cartReducer } from './reducer';
 
-
-
-export const cartStore = createStore(cartReducer)
+export const cartStore = createStore(cartReducer);

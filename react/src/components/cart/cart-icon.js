@@ -1,29 +1,33 @@
 import React, { Component } from "react";
 import { cartStore } from "../product";
-import { Link } from "react-router-dom";
 
 export class CartIcon extends Component {
   state = {};
+
   componentDidMount() {
-    cartStore.subscribe(() =>
+    this.unsubscribe = cartStore.subscribe(() =>
       this.setState({ count: cartStore.getState().length })
     );
   }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     return (
-      <Link to="/cart">
-        <div style={{ cursor: "pointer" }}>
-          <img src="/images/cart.png" width="30" />
-          {this.state.count > 0 && (
-            <span
-              style={{ marginLeft: -10, marginTop: -5, position: "absolute" }}
-              class="badge badge-pill badge-danger"
-            >
-              {this.state.count}
-            </span>
-          )}
-        </div>
-      </Link>
+      <div>
+        <img width="30" src="/images/cart.png" />
+
+        {this.state.count > 0 && (
+          <span
+            style={{ position: "absolute", marginTop: -5, marginLeft: -10 }}
+            className="badge badge-danger badge-pill"
+          >
+            {this.state.count}
+          </span>
+        )}
+      </div>
     );
   }
 }

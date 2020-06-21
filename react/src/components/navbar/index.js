@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { CartIcon } from "../cart/cart-icon";
+import { CartIcon } from "../cart";
+import { Link } from 'react-router-dom';
 
 export class Navbar extends Component {
   render() {
@@ -68,9 +69,11 @@ export class Navbar extends Component {
               </a>
             </li>
           </ul>
-          <div style={{ display: "inline-block", marginRight: 30 }}>
-            <CartIcon />
-          </div>
+          <Link to="/cart">
+            <div style={{ marginRight: 30 }}>
+              <CartIcon />
+            </div>
+          </Link>
           <form className="form-inline my-2 my-lg-0">
             <input
               className="form-control mr-sm-2"
