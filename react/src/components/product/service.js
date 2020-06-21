@@ -3,7 +3,7 @@ import axios from "axios";
 const apiAddress = "http://localhost:5000/products/";
 
 export const productService = {
-  getProducts: (q = "") => {
+  getProducts: (q = '') => {
     return axios.get(apiAddress + q);
   },
   getProductById: (id) => {
