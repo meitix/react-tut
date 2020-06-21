@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Cart } from "../components/cart";
-import { productStore } from "../components/product";
+import { cartStore } from "../components/product";
 
 export class CartPage extends Component {
   state = { products: [] };
 
   componentDidMount() {
-    this.setState({ products: productStore.getState() })
-    productStore.subscribe(() =>
-      this.setState({ products: productStore.getState() })
+    this.setState({ products: cartStore.getState() })
+    cartStore.subscribe(() =>
+      this.setState({ products: cartStore.getState() })
     );
   }
   render() {

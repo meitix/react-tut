@@ -1,5 +1,5 @@
 import React from "react";
-import { productStore, removeFromCard } from "../product";
+import { cartStore, removeFromCard } from "../product";
 
 export function Cart({ products }) {
   if (!products || !products.length) {
@@ -7,7 +7,7 @@ export function Cart({ products }) {
   }
 
   const removeHandler = (item) => {
-      productStore.dispatch(removeFromCard(item))
+      cartStore.dispatch(removeFromCard(item))
   }
 
   return (

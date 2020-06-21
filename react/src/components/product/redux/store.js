@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import { productReducer } from "./reducers";
+import { cartReducer } from "./reducers";
 
 
 
-export const productStore = createStore(productReducer)
+export const cartStore = createStore(cartReducer)

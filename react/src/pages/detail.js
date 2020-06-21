@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { productService, productStore, addToCart } from "../components/product";
+import { productService, cartStore, addToCart } from "../components/product";
 import { CreateComment, CommentsList } from "../components/comment";
 
 export class DetailPage extends React.Component {
@@ -9,7 +9,7 @@ export class DetailPage extends React.Component {
     let id = this.props.match.params.id;
     const { data } = await productService.getProductById(id);
     this.setState({ data });
-    this.unsubscribe = productStore.subscribe(() => console.log(productStore.getState()));
+    this.unsubscribe = cartStore.subscribe(() => console.log(cartStore.getState()));
   }
 
   componentWillUnmount() {
@@ -25,7 +25,7 @@ export class DetailPage extends React.Component {
   }
   
   addToCartHandler() {
-    productStore.dispatch(addToCart(this.state.data));
+    cartStore.dispatch(addToCart(this.state.data));
   }
 
 
