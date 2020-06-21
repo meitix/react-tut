@@ -87,7 +87,14 @@ const data = {
   ],
 };
 router.get("/", (req, res) => {
-  res.json(data.products);
+  if(req.query.q) {
+    const result = _.filter(data.products, item => 
+      item.title.toLowerCase().includes(req.query.q.toLowerCase()) || item.desc.toLowerCase().includes(req.query.q.toLowerCase()));
+    res.json(result);
+  } else {
+    res.json(data.products);
+  }
+  
 });
 
 router.get("/:id", (req, res) => {
