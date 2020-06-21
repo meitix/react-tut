@@ -8,8 +8,6 @@ export function CreateComment(props) {
     if(formIsValid()) {
         props.onComment(state.comment);
         setState({comment: {} , errors: {}})
-    } else {
-        alert('Incorrect data');
     }
   };
 
