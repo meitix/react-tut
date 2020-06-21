@@ -1,14 +1,19 @@
 import React, { Fragment } from "react";
-import { productService } from "../components/product";
+import { productService, productStore, addToCart } from "../components/product";
 import { CreateComment, CommentsList } from "../components/comment";
 
-export class Detail extends React.Component {
+export class DetailPage extends React.Component {
   state = { data: undefined };
 
   async componentDidMount() {
     let id = this.props.match.params.id;
     const { data } = await productService.getProductById(id);
     this.setState({ data });
+    this.unsubscribe = productStore.subscribe(() => console.log(productStore.getState()));
+  }
+
+  componentWillUnmount() {
+   this.unsubscribe();
   }
 
   async submitComment(comment) {
@@ -18,6 +23,11 @@ export class Detail extends React.Component {
     this.setState({data: {...this.state.data , comments: data }})
    }
   }
+  
+  addToCartHandler() {
+    productStore.dispatch(addToCart(this.state.data));
+  }
+
 
   render() {
     const data = this.state.data;
@@ -33,7 +43,8 @@ export class Detail extends React.Component {
           <div className="col-7">
             <h1>{data.title}</h1>
             <p>{data.desc}</p>
-            <strong style={styles.price}>{data.price}</strong>
+            <strong style={styles.price}>{data.price}</strong><br />
+            <button onClick={this.addToCartHandler.bind(this)} className="my-3 btn-lg btn btn-primary">Add to Cart</button>
           </div>
         </div>
 
