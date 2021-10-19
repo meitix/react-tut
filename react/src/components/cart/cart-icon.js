@@ -1,33 +1,31 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { cartStore } from "../product";
 
-export class CartIcon extends Component {
-  state = {};
+export const CartIcon = () => {
 
-  componentDidMount() {
-    this.unsubscribe = cartStore.subscribe(() =>
-      this.setState({ count: cartStore.getState().length })
-    );
-  }
+  const [count, setCount] = useState();
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  useEffect(() => {
+    let unsubscribe = cartStore.subscribe(() =>
+    setCount(cartStore.getState().length)
+  );
 
-  render() {
+  return unsubscribe;
+  }, [])
+
+
     return (
       <div>
         <img width="30" src="/images/cart.png" />
 
-        {this.state.count > 0 && (
+        {count > 0 && (
           <span
             style={{ position: "absolute", marginTop: -5, marginLeft: -10 }}
             className="badge badge-danger badge-pill"
           >
-            {this.state.count}
+            {count}
           </span>
         )}
       </div>
     );
-  }
 }
